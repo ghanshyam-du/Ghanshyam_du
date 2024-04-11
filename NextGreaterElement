@@ -1,0 +1,51 @@
+import java.util.Stack;
+
+public class NextGreaterElement {
+    static void printNGE(int[] arr, int n) {
+        Stack<Integer> s = new Stack<>();
+
+        // Push the first element to the stack
+        s.push(arr[0]);
+
+        // Iterate for the rest of the elements
+        for (int i = 1; i < n; i++) {
+
+            if (s.empty()) {
+                s.push(arr[i]);
+                continue;
+            }
+
+            // If the stack is not empty, then
+            // pop an element from the stack.
+            // If the popped element is smaller
+            // than the next, then
+            // a) print the pair
+            // b) keep popping while elements are
+            // smaller and the stack is not empty
+            while (!s.empty() && s.peek() < arr[i]) {
+                System.out.println(s.peek() + " --> " + arr[i]);
+                s.pop();
+            }
+
+            // Push the next element to the stack
+            // so that we can find the next greater
+            // for it
+            s.push(arr[i]);
+        }
+
+        // After iterating over the loop, the
+        // remaining elements in the stack
+        // do not have the next greater element,
+        // so print -1 for them
+        while (!s.empty()) {
+            System.out.println(s.peek() + " --> " + -1);
+            s.pop();
+        }
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {11, 13, 21, 3};
+        int n = arr.length;
+        printNGE(arr, n);
+    }
+}
