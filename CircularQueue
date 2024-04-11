@@ -1,0 +1,92 @@
+public class CircularQueue {
+    private int[] queue;
+    private int front;
+    private int rear;
+    private int size;
+    private int capacity;
+
+    // Constructor to initialize the circular queue
+    public CircularQueue(int k) {
+        capacity = k;
+        queue = new int[k];
+        front = -1;
+        rear = -1;
+        size = 0;
+    }
+
+    // Function to add an element to the circular queue
+    public void enqueue(int value) {
+        if (isFull()) {
+            System.out.println("Queue is full. Cannot enqueue.");
+            return;
+        }
+        if (isEmpty())
+            front = 0;
+        rear = (rear + 1) % capacity;
+        queue[rear] = value;
+        size++;
+    }
+
+    // Function to remove an element from the circular queue
+    public int dequeue() {
+        if (isEmpty()) {
+            System.out.println("Queue is empty. Cannot dequeue.");
+            return -1;
+        }
+        int removedValue = queue[front];
+        if (front == rear) {
+            front = -1;
+            rear = -1;
+        } else {
+            front = (front + 1) % capacity;
+        }
+        size--;
+        return removedValue;
+    }
+
+    // Function to return the front element of the circular queue
+    public int front() {
+        if (isEmpty()) {
+            System.out.println("Queue is empty. No front element.");
+            return -1;
+        }
+        return queue[front];
+    }
+
+    // Function to return the rear element of the circular queue
+    public int rear() {
+        if (isEmpty()) {
+            System.out.println("Queue is empty. No rear element.");
+            return -1;
+        }
+        return queue[rear];
+    }
+
+    // Function to check if the circular queue is empty
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    // Function to check if the circular queue is full
+    public boolean isFull() {
+        return size == capacity;
+    }
+
+    public static void main(String[] args) {
+        CircularQueue cq = new CircularQueue(5);
+        cq.enqueue(1);
+        cq.enqueue(2);
+        cq.enqueue(3);
+        System.out.println("Front element: " + cq.front());
+        System.out.println("Rear element: " + cq.rear());
+        System.out.println("Dequeued element: " + cq.dequeue());
+        System.out.println("Front element after dequeue: " + cq.front());
+        cq.enqueue(4);
+        cq.enqueue(5);
+        System.out.println("Is queue full? " + cq.isFull());
+        System.out.println("Dequeued element: " + cq.dequeue());
+        System.out.println("Dequeued element: " + cq.dequeue());
+        System.out.println("Dequeued element: " + cq.dequeue());
+        System.out.println("Is queue empty? " + cq.isEmpty());
+    }
+}
