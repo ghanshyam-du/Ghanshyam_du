@@ -1,0 +1,80 @@
+// package trees;
+
+import java.util.Scanner;
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class Tree {
+	
+	static Scanner sc = null;
+	public static void main(String[] args) {
+		sc = new Scanner(System.in);
+		
+		Node root = createTree();
+		
+	}
+	
+	static Node createTree() {
+		
+		Node root = null;
+		System.out.println("Enter data: ");
+		int data = sc.nextInt();
+		
+		if(data == -1) return null;
+		
+		root = new Node(data);
+		
+		System.out.println("Enter left for " + data);
+		root.left = createTree();
+		
+		System.out.println("Enter right for "+ data);
+		root.right = createTree();
+		
+		return root;
+	}
+	void printLevelOrder(Node root)
+	{
+	    Queue<Node> q = new LinkedList<Node>();
+	    q.add(root);
+	    q.add(null);
+	    
+	    while(!q.isEmpty()){
+	        Node curr = q.poll();
+	        
+	        if(curr == null)
+	        {
+	            if(q.isEmpty())
+	            {
+	                return;
+	            }
+	            q.add(null);
+	            System.out.println();
+	            continue;
+	        }
+	        System.out.print(curr.data);
+	    
+	    
+	    
+	    
+	    if(curr.left != null)
+	    {
+	        q.add(curr.left);
+	    }
+	    if(curr.right != null)
+	    {
+	        q.add(curr.right);
+	    }
+	}
+	
+	
+}
+
+class Node {
+	Node left, right;
+	int data;
+	
+	public Node(int data) {
+		this.data = data;
+	}
+}
+}
